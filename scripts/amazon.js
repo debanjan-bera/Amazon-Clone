@@ -1,20 +1,10 @@
-// // const products = [
-// //     {
-// //         image:'images/products/6-piece-non-stick-baking-set.webp',
-// //         name:'6-Piece Nonstick, Carbon Steel Oven Bakeware Baking Set',
-// //         ratings:{
-// //             stars:3.0,
-// //             count:145,
-// //         },
-// //         priceRs:5499
-// //     }
-    
-// // ];
-import {products} from "../data/products.js";
-import {cart,addToCart} from "../data/cart.js";
-let productsHTML = '';
-products.forEach((product)=>{
-     productsHTML +=  `<div class="product-container">
+import { cart, addToCart } from "../data/cart.js";
+import { products } from "../data/products.js";
+
+let productsHTML = "";
+
+products.forEach((product) => {
+  productsHTML += `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
               src="${product.image}">
@@ -26,7 +16,7 @@ products.forEach((product)=>{
     
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars*10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
@@ -58,26 +48,29 @@ products.forEach((product)=>{
             Added
           </div>
     
-          <button class="add-to-cart-button button-primary js-add-to-cart-button" data-product-id="${product.id}">
+          <button class="add-to-cart-button button-primary js-add-to-cart-button" data-product-id="${
+            product.id
+          }">
             Add to Cart
           </button>
-        </div>`
-        
+        </div>`;
 });
 
-document.querySelector('.js-products-grid').innerHTML = productsHTML;
+document.querySelector(".js-products-grid").innerHTML = productsHTML;
+
 function updateQuantity() {
   let cartQuantity = 0;
-       cart.forEach((item)=>{
-        cartQuantity+=item.quantity;
-       });
-  document.querySelector('.js-add-to-cart-quantity').innerHTML = cartQuantity;
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  });
+
+  document.querySelector(".js-add-to-cart-quantity").innerHTML = cartQuantity;
 }
-document.querySelectorAll('.js-add-to-cart-button').forEach((button)=>{
-    button.addEventListener('click',()=>{
-       const productId = button.dataset.productId;
-        
-       addToCart(productId);
-       updateQuantity();
-    });
+
+document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
+    addToCart(productId);
+    updateQuantity();
+  });
 });
